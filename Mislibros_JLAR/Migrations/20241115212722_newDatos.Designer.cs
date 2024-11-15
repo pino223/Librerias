@@ -10,8 +10,8 @@ using Mislibros_JLAR.Data;
 namespace Mislibros_JLAR.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241108050313_PublisherAdded")]
-    partial class PublisherAdded
+    [Migration("20241115212722_newDatos")]
+    partial class newDatos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,43 @@ namespace Mislibros_JLAR.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.17")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Mislibros_JLAR.Data.Models.Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("Mislibros_JLAR.Data.Models.Book_Author", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("BookId");
+
+                    b.ToTable("Book_Authors");
+                });
 
             modelBuilder.Entity("Mislibros_JLAR.Data.Models.Books", b =>
                 {
@@ -55,9 +92,6 @@ namespace Mislibros_JLAR.Migrations
                     b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PublisherId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("Rate")
                         .HasColumnType("int");
 
@@ -66,31 +100,64 @@ namespace Mislibros_JLAR.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("PublisherId1");
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Mislibros_JLAR.Data.Models.Publisher", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publisher");
+                    b.ToTable("Publishers");
+                });
+
+            modelBuilder.Entity("Mislibros_JLAR.Data.Models.Book_Author", b =>
+                {
+                    b.HasOne("Mislibros_JLAR.Data.Models.Author", "Author")
+                        .WithMany("Book_Authors")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mislibros_JLAR.Data.Models.Books", "Book")
+                        .WithMany("Book_Authors")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Mislibros_JLAR.Data.Models.Books", b =>
                 {
                     b.HasOne("Mislibros_JLAR.Data.Models.Publisher", "Publisher")
                         .WithMany("Books")
-                        .HasForeignKey("PublisherId1");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("Mislibros_JLAR.Data.Models.Author", b =>
+                {
+                    b.Navigation("Book_Authors");
+                });
+
+            modelBuilder.Entity("Mislibros_JLAR.Data.Models.Books", b =>
+                {
+                    b.Navigation("Book_Authors");
                 });
 
             modelBuilder.Entity("Mislibros_JLAR.Data.Models.Publisher", b =>

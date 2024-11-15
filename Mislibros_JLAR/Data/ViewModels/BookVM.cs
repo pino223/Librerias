@@ -13,5 +13,7 @@ namespace Mislibros_JLAR.Data.ViewModels
         public string Genero { get; set; }
         public string Autor { get; set; }
         public string CoverUrl { get; set; }
+
+        public int PublisherId { get; set; }
     }
 }

@@ -38,6 +38,8 @@ namespace Mislibros_JLAR
 
             //Configurar el servicio para que pueda ser usado
             services.AddTransient<BooksService>();
+            services.AddTransient<AuthorsService>();
+            services.AddTransient<PublishersService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -65,7 +67,7 @@ namespace Mislibros_JLAR
             {
                 endpoints.MapControllers();
             });
-            AppDbInitializer.Seed(app);
+           //AppDbInitializer.Seed(app);
         }
     }
 }

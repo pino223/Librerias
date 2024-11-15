@@ -90,9 +90,6 @@ namespace Mislibros_JLAR.Migrations
                     b.Property<int>("PublisherId")
                         .HasColumnType("int");
 
-                    b.Property<string>("PublisherId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int?>("Rate")
                         .HasColumnType("int");
 
@@ -101,15 +98,17 @@ namespace Mislibros_JLAR.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("PublisherId1");
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
 
             modelBuilder.Entity("Mislibros_JLAR.Data.Models.Publisher", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -142,7 +141,9 @@ namespace Mislibros_JLAR.Migrations
                 {
                     b.HasOne("Mislibros_JLAR.Data.Models.Publisher", "Publisher")
                         .WithMany("Books")
-                        .HasForeignKey("PublisherId1");
+                        .HasForeignKey("PublisherId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Publisher");
                 });

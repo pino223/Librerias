@@ -27,7 +27,8 @@ namespace Mislibros_JLAR.Data.Services
                 Genero = book.Genero,
                 Autor = book.Autor,
                 CoverUrl = book.CoverUrl,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                PublisherId = book.PublisherId
             };
             _context.Books.Add(_book);
             _context.SaveChanges();

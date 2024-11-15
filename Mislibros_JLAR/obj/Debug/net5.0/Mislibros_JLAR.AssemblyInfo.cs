@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mislibros_JLAR")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a0f04d4eff9a36236036ae1547074c9b3f89cf4c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eee0e8fd8141979400f6e8960d77177dd051796b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mislibros_JLAR")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mislibros_JLAR")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
