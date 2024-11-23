@@ -1,6 +1,9 @@
 ﻿using Mislibros_JLAR.Data.Models;
 using Mislibros_JLAR.Data.ViewModels;
+using Mislibros_JLAR.NewFolder;
+using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Mislibros_JLAR.Data.Services
 {
@@ -14,6 +17,7 @@ namespace Mislibros_JLAR.Data.Services
         //Metodo que nos permite agregar una nueva Editora a la BD
         public Publisher AddPublisher(PublisherVM publisher)
         {
+            if(StringStartsWithNumber(publisher.Name)) throw new PublisherNameException("El nombre empieza con un numero", publisher.Name);
             var _publisher = new Publisher()
             {
                 Name = publisher.Name
@@ -48,6 +52,15 @@ namespace Mislibros_JLAR.Data.Services
                 _context.Publishers.Remove(_publisher);
                 _context.SaveChanges();
             }
+            else
+            {
+                throw new Exception($"La editora con id: {id} no existe");
+            }
+        }
+        private bool StringStartsWithNumber(string name)
+        {
+            if(Regex.IsMatch(name, @"^\d")) return true;
+            return false;
         }
     }
 }

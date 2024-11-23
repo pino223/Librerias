@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Mislibros_JLAR.Data.Services;
 using Mislibros_JLAR.Data.ViewModels;
+using Mislibros_JLAR.NewFolder;
+using System;
 
 namespace Mislibros_JLAR.Controllers
 {
@@ -17,8 +19,20 @@ namespace Mislibros_JLAR.Controllers
         [HttpPost("add-publisher")]
         public IActionResult AddPublisher([FromBody] PublisherVM publisher)
         {
-            var newPublisher = _publishersService.AddPublisher(publisher);
-            return Created(nameof(AddPublisher), newPublisher);
+            try
+            {
+                var newPublisher = _publishersService.AddPublisher(publisher);
+                return Created(nameof(AddPublisher), newPublisher);
+            }
+            catch(PublisherNameException ex)
+            {
+                return BadRequest($"{ex.Message}, Nombre de la editora: {ex.PublisherName}");
+            }
+            catch (Exception ex )
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpGet("get-publisher-by-id/{id}")]
@@ -45,8 +59,16 @@ namespace Mislibros_JLAR.Controllers
         [HttpDelete("delete-publisher-by-id/{id}")]
         public IActionResult DeletePublisherById(int id)
         {
-            _publishersService.DeletePublisherById(id);
-            return Ok();
+            try
+            {
+                _publishersService.DeletePublisherById(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
     }
 }

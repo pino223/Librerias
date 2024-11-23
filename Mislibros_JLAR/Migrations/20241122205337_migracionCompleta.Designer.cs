@@ -10,8 +10,8 @@ using Mislibros_JLAR.Data;
 namespace Mislibros_JLAR.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241116184351_BookAuthorColumnRemoved")]
-    partial class BookAuthorColumnRemoved
+    [Migration("20241122205337_migracionCompleta")]
+    partial class migracionCompleta
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Mislibros_JLAR.Migrations
 {
-    public partial class newDatos : Migration
+    public partial class migracionCompleta : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,11 +42,9 @@ namespace Mislibros_JLAR.Migrations
                     Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRead = table.Column<bool>(type: "bit", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateRead = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Rate = table.Column<int>(type: "int", nullable: true),
                     Genero = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Autor = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CoverUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateAdded = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PublisherId = table.Column<int>(type: "int", nullable: false)
